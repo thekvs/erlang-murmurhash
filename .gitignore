@@ -1,0 +1,6 @@
+*~
+.eunit
+c_src/*.o
+doc
+ebin
+priv

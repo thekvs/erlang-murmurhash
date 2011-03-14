@@ -1,0 +1,14 @@
+{application, erlang_murmurhash,
+ [
+  {description, "MurMurHash implemented in Erlang NIFs"},
+  {vsn, "1.0"},
+  {modules, [
+             erlang_murmurhash
+            ]},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {env, []}
+ ]}.
