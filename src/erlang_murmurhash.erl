@@ -136,8 +136,34 @@ murmurhashneutral2(Data, Seed) when is_atom(Data) andalso is_integer(Seed) ->
 %% ===================================================================
 -ifdef(TEST).
 
-%% To be written
-erlang_murmurhash_test() ->
-    ok.
+read_file(Device, Acc) ->
+    case io:fread(Device, "", "~ts~ts") of
+        eof ->
+            Acc;
+        {ok, [K, V]} ->
+            read_file(Device, [{K, V} | Acc])
+    end.
+
+read_test_data(FileName) ->
+    {ok, Device} = file:open(FileName, [read]),
+    read_file(Device, []).
+
+apply_murmurhash64a(Item) ->
+    K = element(1, Item),
+    V = list_to_integer(element(2, Item)),
+    V = murmurhash64a(K).
+
+apply_murmurhash2(Item) ->
+    K = element(1, Item),
+    V = list_to_integer(element(2, Item)),
+    V = murmurhash2(K).
+
+murmurhash64a_test() ->
+    TestsData = read_test_data("../tests/MurmurHash64A.data"),
+    lists:foreach(fun apply_murmurhash64a/1, TestsData).
+
+murmurhash2_test() ->
+    TestsData = read_test_data("../tests/MurmurHash2.data"),
+    lists:foreach(fun apply_murmurhash2/1, TestsData).
 
 -endif.
