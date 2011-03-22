@@ -61,12 +61,16 @@ murmurhashneutral2_impl(_Data) ->
 murmurhashneutral2_impl(_Data, _Seed) ->
     erlang:nif_error(not_loaded).
 
+-spec murmurhash2(binary() | list() | atom()) -> pos_integer().
+
 murmurhash2(Data) when is_binary(Data) ->
     murmurhash2_impl(Data);
 murmurhash2(Data) when is_list(Data) ->
     murmurhash2_impl(list_to_binary(Data));
 murmurhash2(Data) when is_atom(Data) ->
     murmurhash2_impl(term_to_binary(Data)).
+
+-spec murmurhash2(binary() | list() | atom(), integer()) -> pos_integer().
 
 murmurhash2(Data, Seed) when is_binary(Data) andalso is_integer(Seed) ->
     murmurhash2_impl(Data, Seed);
@@ -75,12 +79,16 @@ murmurhash2(Data, Seed) when is_list(Data) andalso is_integer(Seed) ->
 murmurhash2(Data, Seed) when is_atom(Data) andalso is_integer(Seed) ->
     murmurhash2_impl(term_to_binary(Data), Seed).
 
+-spec murmurhash2a(binary() | list() | atom()) -> pos_integer().
+
 murmurhash2a(Data) when is_binary(Data) ->
     murmurhash2a_impl(Data);
 murmurhash2a(Data) when is_list(Data) ->
     murmurhash2a_impl(list_to_binary(Data));
 murmurhash2a(Data) when is_atom(Data) ->
     murmurhash2a_impl(term_to_binary(Data)).
+
+-spec murmurhash2a(binary() | list() | atom(), integer()) -> pos_integer().
 
 murmurhash2a(Data, Seed) when is_binary(Data) andalso is_integer(Seed) ->
     murmurhash2a_impl(Data, Seed);
@@ -89,12 +97,16 @@ murmurhash2a(Data, Seed) when is_list(Data) andalso is_integer(Seed) ->
 murmurhash2a(Data, Seed) when is_atom(Data) andalso is_integer(Seed) ->
     murmurhash2a_impl(term_to_binary(Data), Seed).
 
+-spec murmurhash64a(binary() | list() | atom()) -> pos_integer().
+
 murmurhash64a(Data) when is_binary(Data) ->
     murmurhash64a_impl(Data);
 murmurhash64a(Data) when is_list(Data) ->
     murmurhash64a_impl(list_to_binary(Data));
 murmurhash64a(Data) when is_atom(Data) ->
     murmurhash64a_impl(term_to_binary(Data)).
+
+-spec murmurhash64a(binary() | list() | atom(), integer()) -> pos_integer().
 
 murmurhash64a(Data, Seed) when is_binary(Data) andalso is_integer(Seed) ->
     murmurhash64a_impl(Data, Seed);
@@ -103,12 +115,16 @@ murmurhash64a(Data, Seed) when is_list(Data) andalso is_integer(Seed) ->
 murmurhash64a(Data, Seed) when is_atom(Data) andalso is_integer(Seed) ->
     murmurhash64a_impl(term_to_binary(Data), Seed).
 
+-spec murmurhash64b(binary() | list() | atom()) -> pos_integer().
+
 murmurhash64b(Data) when is_binary(Data) ->
     murmurhash64b_impl(Data);
 murmurhash64b(Data) when is_list(Data) ->
     murmurhash64b_impl(list_to_binary(Data));
 murmurhash64b(Data) when is_atom(Data) ->
     murmurhash64b_impl(term_to_binary(Data)).
+
+-spec murmurhash64b(binary() | list() | atom(), integer()) -> pos_integer().
 
 murmurhash64b(Data, Seed) when is_binary(Data) andalso is_integer(Seed) ->
     murmurhash64b_impl(Data, Seed);
@@ -117,12 +133,16 @@ murmurhash64b(Data, Seed) when is_list(Data) andalso is_integer(Seed) ->
 murmurhash64b(Data, Seed) when is_atom(Data) andalso is_integer(Seed) ->
     murmurhash64b_impl(term_to_binary(Data), Seed).
 
+-spec murmurhashneutral2(binary() | list() | atom()) -> pos_integer().
+
 murmurhashneutral2(Data) when is_binary(Data) ->
     murmurhashneutral2_impl(Data);
 murmurhashneutral2(Data) when is_list(Data) ->
     murmurhashneutral2_impl(list_to_binary(Data));
 murmurhashneutral2(Data) when is_atom(Data) ->
     murmurhashneutral2_impl(term_to_binary(Data)).
+
+-spec murmurhashneutral2(binary() | list() | atom(), integer()) -> pos_integer().
 
 murmurhashneutral2(Data, Seed) when is_binary(Data) andalso is_integer(Seed) ->
     murmurhashneutral2_impl(Data, Seed);
