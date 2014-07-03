@@ -4,6 +4,8 @@ The **erlang-murmurhash** library provides [MurmurHash](http://code.google.com/p
 
 ## Building and Installing
 
+[![Build Status](https://travis-ci.org/thekvs/erlang-murmurhash.svg?branch=master)](https://travis-ci.org/thekvs/erlang-murmurhash)
+
 The **erlang-murmurhash** library is built with [rebar](https://github.com/basho/rebar), which must be in the command `PATH`.
 
 ## Erlang Version
