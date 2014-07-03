@@ -48,7 +48,7 @@ static bool check_and_unpack_data(ErlNifEnv* env, ERL_NIF_TERM bin_term,
     ErlNifBinary *bin);
 
 ERL_NIF_TERM
-erlang_murmurhash2_1_impl(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+erlang_murmurhash2_1_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary bin;
     uint32_t     h;
@@ -63,7 +63,7 @@ erlang_murmurhash2_1_impl(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 }
 
 ERL_NIF_TERM
-erlang_murmurhash2_2_impl(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+erlang_murmurhash2_2_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary bin;
     uint32_t     h;
@@ -83,8 +83,7 @@ erlang_murmurhash2_2_impl(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 }
 
 ERL_NIF_TERM
-erlang_murmurhash64a_1_impl(ErlNifEnv* env, int argc,
-    const ERL_NIF_TERM argv[])
+erlang_murmurhash64a_1_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary bin;
     uint64_t     h;
@@ -99,8 +98,7 @@ erlang_murmurhash64a_1_impl(ErlNifEnv* env, int argc,
 }
 
 ERL_NIF_TERM
-erlang_murmurhash64a_2_impl(ErlNifEnv* env, int argc,
-    const ERL_NIF_TERM argv[])
+erlang_murmurhash64a_2_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary bin;
     uint64_t     h;
@@ -120,8 +118,7 @@ erlang_murmurhash64a_2_impl(ErlNifEnv* env, int argc,
 }
 
 ERL_NIF_TERM
-erlang_murmurhash64b_1_impl(ErlNifEnv* env, int argc,
-    const ERL_NIF_TERM argv[])
+erlang_murmurhash64b_1_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary bin;
     uint64_t     h;
@@ -136,8 +133,7 @@ erlang_murmurhash64b_1_impl(ErlNifEnv* env, int argc,
 }
 
 ERL_NIF_TERM
-erlang_murmurhash64b_2_impl(ErlNifEnv* env, int argc,
-    const ERL_NIF_TERM argv[])
+erlang_murmurhash64b_2_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary bin;
     uint64_t     h;
@@ -157,7 +153,7 @@ erlang_murmurhash64b_2_impl(ErlNifEnv* env, int argc,
 }
 
 ERL_NIF_TERM
-erlang_murmurhash2a_1_impl(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+erlang_murmurhash2a_1_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary bin;
     uint32_t     h;
@@ -172,7 +168,7 @@ erlang_murmurhash2a_1_impl(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 }
 
 ERL_NIF_TERM
-erlang_murmurhash2a_2_impl(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+erlang_murmurhash2a_2_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary bin;
     uint32_t     h;
@@ -192,8 +188,7 @@ erlang_murmurhash2a_2_impl(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 }
 
 ERL_NIF_TERM
-erlang_murmurhashneutral2_1_impl(ErlNifEnv* env, int argc,
-    const ERL_NIF_TERM argv[])
+erlang_murmurhashneutral2_1_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary bin;
     uint32_t     h;
@@ -208,8 +203,7 @@ erlang_murmurhashneutral2_1_impl(ErlNifEnv* env, int argc,
 }
 
 ERL_NIF_TERM
-erlang_murmurhashneutral2_2_impl(ErlNifEnv* env, int argc,
-    const ERL_NIF_TERM argv[])
+erlang_murmurhashneutral2_2_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary bin;
     uint32_t     h;
