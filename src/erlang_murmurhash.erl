@@ -10,7 +10,8 @@
          murmurhash2a/1, murmurhash2a/2,
          murmurhashneutral2/1, murmurhashneutral2/2,
          murmurhash64a/1, murmurhash64a/2,
-         murmurhash64b/1, murmurhash64b/2]).
+         murmurhash64b/1, murmurhash64b/2,
+         murmurhash3_32/1, murmurhash3_32/2]).
 
 -ifdef(TEST).
 -include_lib("eunit/include/eunit.hrl").
@@ -59,6 +60,12 @@ murmurhashneutral2_impl(_Data) ->
     erlang:nif_error(not_loaded).
 
 murmurhashneutral2_impl(_Data, _Seed) ->
+    erlang:nif_error(not_loaded).
+
+murmurhash3_32_impl(_Data) ->
+    erlang:nif_error(not_loaded).
+
+murmurhash3_32_impl(_Data, _Seed) ->
     erlang:nif_error(not_loaded).
 
 -spec murmurhash2(binary() | list() | atom()) -> pos_integer().
@@ -151,6 +158,24 @@ murmurhashneutral2(Data, Seed) when is_list(Data) andalso is_integer(Seed) ->
 murmurhashneutral2(Data, Seed) when is_atom(Data) andalso is_integer(Seed) ->
     murmurhashneutral2_impl(term_to_binary(Data), Seed).
 
+-spec murmurhash3_32(binary() | list() | atom()) -> pos_integer().
+
+murmurhash3_32(Data) when is_binary(Data) ->
+    murmurhash3_32_impl(Data);
+murmurhash3_32(Data) when is_list(Data) ->
+    murmurhash3_32_impl(list_to_binary(Data));
+murmurhash3_32(Data) when is_atom(Data) ->
+    murmurhash3_32_impl(term_to_binary(Data)).
+
+-spec murmurhash3_32(binary() | list() | atom(), integer()) -> pos_integer().
+
+murmurhash3_32(Data, Seed) when is_binary(Data) andalso is_integer(Seed) ->
+    murmurhash3_32_impl(Data, Seed);
+murmurhash3_32(Data, Seed) when is_list(Data) andalso is_integer(Seed) ->
+    murmurhash3_32_impl(list_to_binary(Data), Seed);
+murmurhash3_32(Data, Seed) when is_atom(Data) andalso is_integer(Seed) ->
+    murmurhash3_32_impl(term_to_binary(Data), Seed).
+
 %% ===================================================================
 %% EUnit tests
 %% ===================================================================
@@ -178,6 +203,11 @@ apply_murmurhash2(Item) ->
     V = list_to_integer(element(2, Item)),
     V = murmurhash2(K).
 
+apply_murmurhash3_32(Item) ->
+    K = element(1, Item),
+    V = list_to_integer(element(2, Item)),
+    V = murmurhash3_32(K).
+
 murmurhash64a_test() ->
     TestsData = read_test_data("../tests/MurmurHash64A.data"),
     lists:foreach(fun apply_murmurhash64a/1, TestsData).
@@ -185,5 +215,9 @@ murmurhash64a_test() ->
 murmurhash2_test() ->
     TestsData = read_test_data("../tests/MurmurHash2.data"),
     lists:foreach(fun apply_murmurhash2/1, TestsData).
+
+murmurhash3_32_test() ->
+    TestsData = read_test_data("../tests/MurmurHash3.data"),
+    lists:foreach(fun apply_murmurhash3_32/1, TestsData).
 
 -endif.
