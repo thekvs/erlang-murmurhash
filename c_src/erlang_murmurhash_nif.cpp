@@ -36,6 +36,26 @@ ERL_NIF_TERM erlang_murmurhash3_x86_32_2_impl(ErlNifEnv* env, int argc,
 
 } // extern "C"
 
+#if (ERL_NIF_MAJOR_VERSION >= 2 && ERL_NIF_MINOR_VERSION >= 7)
+
+static ErlNifFunc nif_funcs[] =
+{
+    {"murmurhash2_impl", 1, erlang_murmurhash2_1_impl, 0},
+    {"murmurhash2_impl", 2, erlang_murmurhash2_2_impl, 0},
+    {"murmurhash64a_impl", 1, erlang_murmurhash64a_1_impl, 0},
+    {"murmurhash64a_impl", 2, erlang_murmurhash64a_2_impl, 0},
+    {"murmurhash64b_impl", 1, erlang_murmurhash64b_1_impl, 0},
+    {"murmurhash64b_impl", 2, erlang_murmurhash64b_2_impl, 0},
+    {"murmurhash2a_impl", 1, erlang_murmurhash2a_1_impl, 0},
+    {"murmurhash2a_impl", 2, erlang_murmurhash2a_2_impl, 0},
+    {"murmurhashneutral2_impl", 1, erlang_murmurhashneutral2_1_impl, 0},
+    {"murmurhashneutral2_impl", 2, erlang_murmurhashneutral2_2_impl, 0},
+    {"murmurhash3_32_impl", 1, erlang_murmurhash3_x86_32_1_impl, 0},
+    {"murmurhash3_32_impl", 2, erlang_murmurhash3_x86_32_2_impl, 0}
+};
+
+#else
+
 static ErlNifFunc nif_funcs[] =
 {
     {"murmurhash2_impl", 1, erlang_murmurhash2_1_impl},
@@ -51,6 +71,8 @@ static ErlNifFunc nif_funcs[] =
     {"murmurhash3_32_impl", 1, erlang_murmurhash3_x86_32_1_impl},
     {"murmurhash3_32_impl", 2, erlang_murmurhash3_x86_32_2_impl}
 };
+
+#endif
 
 static bool check_and_unpack_data(ErlNifEnv* env, ERL_NIF_TERM bin_term,
     ErlNifBinary *bin);
