@@ -34,6 +34,16 @@ ERL_NIF_TERM erlang_murmurhash3_x86_32_1_impl(ErlNifEnv* env, int argc,
 ERL_NIF_TERM erlang_murmurhash3_x86_32_2_impl(ErlNifEnv* env, int argc,
     const ERL_NIF_TERM argv[]);
 
+ERL_NIF_TERM erlang_murmurhash3_x86_128_1_impl(ErlNifEnv* env, int argc,
+    const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM erlang_murmurhash3_x86_128_2_impl(ErlNifEnv* env, int argc,
+    const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM erlang_murmurhash3_x64_128_1_impl(ErlNifEnv* env, int argc,
+    const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM erlang_murmurhash3_x64_128_2_impl(ErlNifEnv* env, int argc,
+    const ERL_NIF_TERM argv[]);
+
 } // extern "C"
 
 #if (ERL_NIF_MAJOR_VERSION >= 2 && ERL_NIF_MINOR_VERSION >= 7)
@@ -51,7 +61,11 @@ static ErlNifFunc nif_funcs[] =
     {"murmurhashneutral2_impl", 1, erlang_murmurhashneutral2_1_impl, 0},
     {"murmurhashneutral2_impl", 2, erlang_murmurhashneutral2_2_impl, 0},
     {"murmurhash3_32_impl", 1, erlang_murmurhash3_x86_32_1_impl, 0},
-    {"murmurhash3_32_impl", 2, erlang_murmurhash3_x86_32_2_impl, 0}
+    {"murmurhash3_32_impl", 2, erlang_murmurhash3_x86_32_2_impl, 0},
+    {"murmurhash3_x86_128_impl", 1, erlang_murmurhash3_x86_128_1_impl, 0},
+    {"murmurhash3_x86_128_impl", 2, erlang_murmurhash3_x86_128_2_impl, 0},
+    {"murmurhash3_x64_128_impl", 1, erlang_murmurhash3_x64_128_1_impl, 0},
+    {"murmurhash3_x64_128_impl", 2, erlang_murmurhash3_x64_128_2_impl, 0}
 };
 
 #else
@@ -69,7 +83,11 @@ static ErlNifFunc nif_funcs[] =
     {"murmurhashneutral2_impl", 1, erlang_murmurhashneutral2_1_impl},
     {"murmurhashneutral2_impl", 2, erlang_murmurhashneutral2_2_impl},
     {"murmurhash3_32_impl", 1, erlang_murmurhash3_x86_32_1_impl},
-    {"murmurhash3_32_impl", 2, erlang_murmurhash3_x86_32_2_impl}
+    {"murmurhash3_32_impl", 2, erlang_murmurhash3_x86_32_2_impl},
+    {"murmurhash3_x86_128_impl", 1, erlang_murmurhash3_x86_128_1_impl},
+    {"murmurhash3_x86_128_impl", 2, erlang_murmurhash3_x86_128_2_impl},
+    {"murmurhash3_x64_128_impl", 1, erlang_murmurhash3_x64_128_1_impl},
+    {"murmurhash3_x64_128_impl", 2, erlang_murmurhash3_x64_128_2_impl}
 };
 
 #endif
@@ -285,6 +303,88 @@ erlang_murmurhash3_x86_32_2_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
     MurmurHash3_x86_32(bin.data, bin.size, seed, &h);
 
     return enif_make_uint(env, h);
+}
+
+ERL_NIF_TERM
+erlang_murmurhash3_x86_128_1_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
+{
+    ErlNifBinary bin;
+    ERL_NIF_TERM ret;
+    unsigned char *h;
+
+    if (!check_and_unpack_data(env, argv[0], &bin)) {
+        return enif_make_badarg(env);
+    }
+
+    h = enif_make_new_binary(env, 16, &ret);
+
+    MurmurHash3_x86_128(bin.data, bin.size, 0, (void *)h);
+
+    return ret;
+}
+
+ERL_NIF_TERM
+erlang_murmurhash3_x86_128_2_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
+{
+    ErlNifBinary bin;
+    uint32_t     seed;
+    ERL_NIF_TERM ret;
+    unsigned char *h;
+
+    if (!check_and_unpack_data(env, argv[0], &bin)) {
+        return enif_make_badarg(env);
+    }
+
+    if (!enif_get_uint(env, argv[1], &seed)) {
+        return enif_make_badarg(env);
+    }
+
+    h = enif_make_new_binary(env, 16, &ret);
+
+    MurmurHash3_x86_128(bin.data, bin.size, seed, (void *)h);
+
+    return ret;
+}
+
+ERL_NIF_TERM
+erlang_murmurhash3_x64_128_1_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
+{
+    ErlNifBinary bin;
+    ERL_NIF_TERM ret;
+    unsigned char *h;
+
+    if (!check_and_unpack_data(env, argv[0], &bin)) {
+        return enif_make_badarg(env);
+    }
+
+    h = enif_make_new_binary(env, 16, &ret);
+
+    MurmurHash3_x64_128(bin.data, bin.size, 0, (void *)h);
+
+    return ret;
+}
+
+ERL_NIF_TERM
+erlang_murmurhash3_x64_128_2_impl(ErlNifEnv* env, int, const ERL_NIF_TERM argv[])
+{
+    ErlNifBinary bin;
+    uint32_t     seed;
+    ERL_NIF_TERM ret;
+    unsigned char *h;
+
+    if (!check_and_unpack_data(env, argv[0], &bin)) {
+        return enif_make_badarg(env);
+    }
+
+    if (!enif_get_uint(env, argv[1], &seed)) {
+        return enif_make_badarg(env);
+    }
+
+    h = enif_make_new_binary(env, 16, &ret);
+
+    MurmurHash3_x64_128(bin.data, bin.size, seed, (void *)h);
+
+    return ret;
 }
 
 bool
