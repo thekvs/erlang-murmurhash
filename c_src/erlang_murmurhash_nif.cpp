@@ -85,7 +85,7 @@ static ErlNifFunc nif_funcs[] =
     {"murmurhash3_32_impl", 1, erlang_murmurhash3_x86_32_1_impl},
     {"murmurhash3_32_impl", 2, erlang_murmurhash3_x86_32_2_impl},
     {"murmurhash3_x86_128_impl", 1, erlang_murmurhash3_x86_128_1_impl},
-    {"murmurhash3_x86_128_impl", 2, erlang_murmurhash3_x86_128_2_impl}
+    {"murmurhash3_x86_128_impl", 2, erlang_murmurhash3_x86_128_2_impl},
     {"murmurhash3_x64_128_impl", 1, erlang_murmurhash3_x64_128_1_impl},
     {"murmurhash3_x64_128_impl", 2, erlang_murmurhash3_x64_128_2_impl}
 };
