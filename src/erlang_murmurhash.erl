@@ -310,7 +310,7 @@ apply_murmurhash3_x64_128(Item) ->
 
 apply_murmurhash3_x64_128_cass(Item) ->
     K = element(1, Item),
-    V = list_to_integer(element(2, Item), 16),
+    V = list_to_integer(element(2, Item), 10),
     V = murmurhash3_x64_128_cass(K).
 
 murmurhash64a_test() ->
@@ -334,7 +334,7 @@ murmurhash3_x64_128_test() ->
     lists:foreach(fun apply_murmurhash3_x64_128/1, TestsData).
 
 murmurhash3_x64_128_cass_test() ->
-    TestsData = read_test_data("../tests/MurmurHash3_x64_128.data"),
+    TestsData = read_test_data("../tests/MurmurHash3_x64_128_cass.data"),
     lists:foreach(fun apply_murmurhash3_x64_128_cass/1, TestsData).
 
 -endif.
