@@ -13,7 +13,8 @@
          murmurhash64b/1, murmurhash64b/2,
          murmurhash3_32/1, murmurhash3_32/2,
          murmurhash3_x86_128/1, murmurhash3_x86_128/2,
-         murmurhash3_x64_128/1, murmurhash3_x64_128/2
+         murmurhash3_x64_128/1, murmurhash3_x64_128/2,
+         murmurhash3_x64_128_cass/1
         ]).
 
 -ifdef(TEST).
@@ -81,6 +82,9 @@ murmurhash3_x64_128_impl(_Data) ->
     erlang:nif_error(not_loaded).
 
 murmurhash3_x64_128_impl(_Data, _Seed) ->
+    erlang:nif_error(not_loaded).
+
+murmurhash3_x64_128_cass_impl(_Data) ->
     erlang:nif_error(not_loaded).
 
 -spec murmurhash2(binary() | list() | atom()) -> non_neg_integer().
@@ -253,6 +257,15 @@ murmurhash3_x64_128_wrapper(Data, Seed) ->
 flip_2_64bit_words(<<A:8/binary, B:8/binary>>) ->
     <<B/binary, A/binary>>.
 
+-spec murmurhash3_x64_128_cass(binary() | list() | atom()) -> integer().
+
+murmurhash3_x64_128_cass(Data) when is_binary(Data) ->
+    murmurhash3_x64_128_cass_impl(Data);
+murmurhash3_x64_128_cass(Data) when is_list(Data) ->
+    murmurhash3_x64_128_cass_impl(list_to_binary(Data));
+murmurhash3_x64_128_cass(Data) when is_atom(Data) ->
+    murmurhash3_x64_128_cass_impl(term_to_binary(Data)).
+
 %% ===================================================================
 %% EUnit tests
 %% ===================================================================
@@ -295,6 +308,11 @@ apply_murmurhash3_x64_128(Item) ->
     V = list_to_integer(element(2, Item), 16),
     V = murmurhash3_x64_128(K).
 
+apply_murmurhash3_x64_128_cass(Item) ->
+    K = element(1, Item),
+    V = list_to_integer(element(2, Item), 10),
+    V = murmurhash3_x64_128_cass(K).
+
 murmurhash64a_test() ->
     TestsData = read_test_data("../tests/MurmurHash64A.data"),
     lists:foreach(fun apply_murmurhash64a/1, TestsData).
@@ -314,5 +332,9 @@ murmurhash3_x86_128_test() ->
 murmurhash3_x64_128_test() ->
     TestsData = read_test_data("../tests/MurmurHash3_x64_128.data"),
     lists:foreach(fun apply_murmurhash3_x64_128/1, TestsData).
+
+murmurhash3_x64_128_cass_test() ->
+    TestsData = read_test_data("../tests/MurmurHash3_x64_128_cass.data"),
+    lists:foreach(fun apply_murmurhash3_x64_128_cass/1, TestsData).
 
 -endif.
