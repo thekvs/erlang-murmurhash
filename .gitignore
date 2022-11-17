@@ -1,6 +1,27 @@
-*~
+# IDE
+.idea/
+
+# System files
+.DS_STORE
+
 .eunit
-c_src/*.o
-doc
-ebin
-priv
+out/
+*.o
+*.beam
+*.plt
+*dump
+.concrete/DEV_MODE
+
+# rebar 2.x
+.rebar
+rel/example_project
+ebin/*.beam
+deps
+
+# rebar 3
+.rebar3
+_build/
+_checkouts/
+
+
+temp*
